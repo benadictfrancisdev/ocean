@@ -1,0 +1,370 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Sea Blue & White Sand Theme */
+    --background: 200 35% 8%;
+    --foreground: 40 30% 95%;
+
+    --card: 200 35% 10%;
+    --card-foreground: 40 30% 95%;
+
+    --popover: 200 35% 10%;
+    --popover-foreground: 40 30% 95%;
+
+    /* Sea Blue Primary */
+    --primary: 195 85% 55%;
+    --primary-foreground: 200 35% 8%;
+
+    /* White Sand Secondary */
+    --secondary: 40 25% 18%;
+    --secondary-foreground: 40 30% 95%;
+
+    --muted: 200 25% 15%;
+    --muted-foreground: 40 20% 65%;
+
+    /* Sea Blue Accent */
+    --accent: 200 80% 45%;
+    --accent-foreground: 40 30% 95%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 40 30% 95%;
+
+    /* Neon Blue-White Success (for completed tasks) */
+    --success: 190 100% 65%;
+    --success-foreground: 200 35% 8%;
+
+    --warning: 38 92% 50%;
+    --warning-foreground: 200 35% 8%;
+
+    --border: 200 25% 20%;
+    --input: 200 25% 20%;
+    --ring: 195 85% 55%;
+
+    --radius: 0.75rem;
+
+    /* Sand color for special elements */
+    --sand: 40 35% 85%;
+    --sand-dark: 40 25% 25%;
+
+    /* Neon glow colors */
+    --neon-blue: 195 100% 60%;
+    --neon-white: 195 50% 90%;
+    --neon-complete: 190 100% 70%;
+
+    /* Light sea blue colors */
+    --sea-light: 195 80% 75%;
+    --sea-foam: 185 70% 80%;
+    --sea-wave: 200 85% 65%;
+
+    /* Custom gradients - Sea Blue */
+    --gradient-primary: linear-gradient(135deg, hsl(195 85% 55%) 0%, hsl(210 90% 50%) 100%);
+    --gradient-glow: radial-gradient(ellipse at center, hsl(195 85% 55% / 0.2) 0%, transparent 70%);
+    --gradient-card: linear-gradient(135deg, hsl(200 25% 12% / 0.8) 0%, hsl(200 35% 10% / 0.9) 100%);
+    
+    /* Neon Blue-White Gradient for completions */
+    --gradient-complete: linear-gradient(135deg, hsl(190 100% 65%) 0%, hsl(195 50% 90%) 50%, hsl(200 100% 70%) 100%);
+    --gradient-neon: linear-gradient(90deg, hsl(195 100% 60%) 0%, hsl(195 50% 95%) 50%, hsl(200 100% 65%) 100%);
+    
+    /* Sea wave gradient */
+    --gradient-sea: linear-gradient(90deg, hsl(195 80% 75%) 0%, hsl(185 70% 80%) 25%, hsl(200 85% 65%) 50%, hsl(185 70% 80%) 75%, hsl(195 80% 75%) 100%);
+    --gradient-sea-wave: linear-gradient(135deg, hsl(195 80% 70% / 0.3) 0%, hsl(200 85% 60% / 0.2) 50%, hsl(185 70% 75% / 0.3) 100%);
+    
+    /* Shadows */
+    --shadow-glow: 0 0 60px -10px hsl(195 85% 55% / 0.5);
+    --shadow-card: 0 4px 24px -4px hsl(0 0% 0% / 0.4);
+    --shadow-neon: 0 0 30px hsl(190 100% 65% / 0.6), 0 0 60px hsl(195 50% 90% / 0.3);
+    --shadow-complete: 0 0 40px hsl(190 100% 70% / 0.8), 0 0 80px hsl(195 60% 85% / 0.4);
+    --shadow-sea: 0 0 25px hsl(195 80% 75% / 0.4), 0 0 50px hsl(200 85% 65% / 0.2);
+
+    --sidebar-background: 200 35% 8%;
+    --sidebar-foreground: 40 30% 95%;
+    --sidebar-primary: 195 85% 55%;
+    --sidebar-primary-foreground: 200 35% 8%;
+    --sidebar-accent: 40 25% 18%;
+    --sidebar-accent-foreground: 40 30% 95%;
+    --sidebar-border: 200 25% 20%;
+    --sidebar-ring: 195 85% 55%;
+  }
+
+  .dark {
+    --background: 200 35% 8%;
+    --foreground: 40 30% 95%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', system-ui, sans-serif;
+    background-image: 
+      radial-gradient(ellipse at 20% 20%, hsl(195 85% 55% / 0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 80%, hsl(40 35% 85% / 0.03) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 100%, hsl(195 80% 75% / 0.06) 0%, transparent 40%);
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--gradient-sea-wave);
+    opacity: 0;
+    animation: sea-shimmer 8s ease-in-out infinite;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-card/60 backdrop-blur-xl border border-border/50 rounded-xl;
+    box-shadow: var(--shadow-card);
+  }
+
+  .gradient-text {
+    @apply bg-clip-text text-transparent;
+    background-image: var(--gradient-primary);
+  }
+
+  .glow-effect {
+    box-shadow: var(--shadow-glow);
+  }
+
+  .pipeline-line {
+    background: linear-gradient(90deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 100%);
+  }
+
+  /* Neon completion styles */
+  .neon-complete {
+    background: var(--gradient-complete);
+    box-shadow: var(--shadow-complete);
+    animation: neon-pulse 2s ease-in-out infinite;
+  }
+
+  .neon-glow {
+    box-shadow: var(--shadow-neon);
+  }
+
+  .neon-text {
+    @apply bg-clip-text text-transparent;
+    background-image: var(--gradient-neon);
+    text-shadow: 0 0 20px hsl(190 100% 65% / 0.5);
+  }
+
+  /* Sand accent */
+  .sand-accent {
+    background: linear-gradient(135deg, hsl(40 35% 85%) 0%, hsl(40 25% 70%) 100%);
+  }
+
+  /* Stage completion glow */
+  .stage-complete {
+    position: relative;
+  }
+
+  .stage-complete::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    background: var(--gradient-complete);
+    border-radius: inherit;
+    opacity: 0.4;
+    z-index: -1;
+    filter: blur(8px);
+    animation: neon-pulse 2s ease-in-out infinite;
+  }
+
+  /* Sea wave effects */
+  .sea-wave {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .sea-wave::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--gradient-sea);
+    background-size: 200% 100%;
+    opacity: 0.15;
+    animation: wave-flow 4s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  .sea-glow {
+    box-shadow: var(--shadow-sea);
+  }
+
+  .sea-border {
+    border: 1px solid hsl(195 80% 75% / 0.3);
+    box-shadow: inset 0 0 20px hsl(195 80% 75% / 0.05);
+  }
+
+  .sea-text {
+    @apply bg-clip-text text-transparent;
+    background: linear-gradient(90deg, hsl(195 80% 75%), hsl(200 85% 70%), hsl(185 70% 80%));
+    animation: sea-text-shimmer 3s ease-in-out infinite;
+  }
+
+  .sea-pulse {
+    animation: sea-pulse 3s ease-in-out infinite;
+  }
+}
+
+@layer utilities {
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  .animate-slide-up {
+    animation: slide-up 0.6s ease-out forwards;
+  }
+
+  .animate-fade-in {
+    animation: fade-in 0.8s ease-out forwards;
+  }
+
+  .animate-neon-pulse {
+    animation: neon-pulse 2s ease-in-out infinite;
+  }
+
+  .animate-neon-flash {
+    animation: neon-flash 0.5s ease-out forwards;
+  }
+
+  .animate-sea-wave {
+    animation: wave-flow 4s ease-in-out infinite;
+  }
+
+  .animate-sea-shimmer {
+    animation: sea-shimmer 8s ease-in-out infinite;
+  }
+
+  .animate-sea-pulse {
+    animation: sea-pulse 3s ease-in-out infinite;
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+@keyframes slide-up {
+  from { 
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes neon-pulse {
+  0%, 100% { 
+    opacity: 0.8;
+    filter: brightness(1);
+  }
+  50% { 
+    opacity: 1;
+    filter: brightness(1.2);
+  }
+}
+
+@keyframes neon-flash {
+  0% { 
+    opacity: 0;
+    transform: scale(0.8);
+    filter: brightness(2);
+  }
+  50% { 
+    opacity: 1;
+    filter: brightness(1.5);
+  }
+  100% { 
+    opacity: 1;
+    transform: scale(1);
+    filter: brightness(1);
+  }
+}
+
+@keyframes wave-flow {
+  0% { 
+    background-position: 0% 50%;
+    opacity: 0.1;
+  }
+  50% { 
+    background-position: 100% 50%;
+    opacity: 0.2;
+  }
+  100% { 
+    background-position: 0% 50%;
+    opacity: 0.1;
+  }
+}
+
+@keyframes sea-shimmer {
+  0%, 100% { 
+    opacity: 0;
+    transform: translateY(0);
+  }
+  25% { 
+    opacity: 0.15;
+  }
+  50% { 
+    opacity: 0.25;
+    transform: translateY(-10px);
+  }
+  75% { 
+    opacity: 0.15;
+  }
+}
+
+@keyframes sea-pulse {
+  0%, 100% { 
+    box-shadow: 0 0 15px hsl(195 80% 75% / 0.3);
+  }
+  50% { 
+    box-shadow: 0 0 30px hsl(195 80% 75% / 0.5), 0 0 50px hsl(200 85% 65% / 0.3);
+  }
+}
+
+@keyframes sea-text-shimmer {
+  0%, 100% { 
+    background-position: 0% 50%;
+  }
+  50% { 
+    background-position: 100% 50%;
+  }
+}
